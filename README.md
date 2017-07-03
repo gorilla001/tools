@@ -31,7 +31,7 @@
  ```
   Markdown 将会把它转换为：
   ```
-  4 \&lt; 5
+  4 &lt; 5
   ```
  不过*需要注意的：code 范围内，不论是行内还是区块， < 和 & 两个符号都一定会被转换成 HTML 实体，这项特性让你可以很容易地用 Markdown 写 HTML code(和HTML相对而言HTML语法中，你要把所有的 < 和 & 都转换为HTML实体，才能在HTML文件里面写出 HTML code)*。
 
