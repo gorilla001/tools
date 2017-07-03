@@ -48,7 +48,7 @@
   ```
  不过*需要注意的是：code 范围内，不论是行内还是区块，<span><</span> 和 <span>&</span> 两个符号都一定会被转换成 HTML 实体，这项特性让你可以很容易地用 Markdown 写 HTML code(和 HTML 相对而言 HTML 语法中，你要把所有的 < 和 & 都转换为HTML实体，才能在HTML文件里面写出 HTML code)*。
 
->> 区块元素
+>> **区块元素**
 
 #### 段落和换行
  一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行（空行的定义是显示上看起来像是空的，便会被视为空行。    
@@ -111,28 +111,26 @@
 
 #### 列表
    Markdown 支持有序列表和无序列表。
- + 无序列表使用星号、加号或是减号作为列表标记：  
-  ``` 
-   * 这是一个无序列表
-   + 这是一个无序列表
-   - 这是一个无序列表
-  ```
-+ 通过 table 键可以实现无序列表的嵌套：
-  ```
+ + 无序列表使用星号、加号或是减号作为列表标记:
+      * 这是一个无序列表
+      + 这是一个无序列表
+      - 这是一个无序列表  
+ 
+ 
++ 通过 table 键可以实现无序列表的嵌套:
+
    + 这是无序列表
         + 这是无序列表的嵌套
         + 这是无序列表的嵌套
             * 这是无序列表的嵌套的嵌套
-             - 这是无序列表的嵌套的嵌套
+            - 这是无序列表的嵌套的嵌套    
    * 这是无序列表
-  ```
+  
+ + 有序列表则使用数字接着一个英文句点:
+         1. 这是一个有序列表1
+         2. 这是一个有序列表2
+         3. 这是一个有序列表3
  
- + 有序列表则使用数字接着一个英文句点：
-  ```
-  1. 这是一个有序列表1
-  2. 这是一个有序列表2
-  3. 这是一个有序列表3
-  ```
  **很重要的一点是，你在列表标记上使用的数字并不会影响 HTML 输出的顺序，上面的列表数字即使是胡乱排序的， HTML 也会按列表自上而下进行排列**   
  + Markdown 文件的列表数字和输出的结果不由编码的大小来决定,你可以懒一点，Markdown 可以完全不用在意数字的正确性。
  + 如果你使用懒惰的写法，建议第一个项目最好还是从 **1.** 开始，因为 Markdown 未来可能会支持有序列表的 start 属性。
@@ -241,71 +239,86 @@ end tell
 ### 区段元素
 #### 链接
 Markdown 支持两种形式的链接语法：**行内式**和**参考式**两种形式。
-不管是哪一种，链接文字都是用 [方括号] 来标记。  
->> 行内式链接
-+ 要建立一个行内式的链接，只要在方块括号后面紧接着圆括号并插入网址链接即可，如果你还想要加上链接的title文字，只要在网址后面，用双引号把title文字包起来即可，例如：
+不管是哪一种，链接文字都是用 \[ 方括号 \] 来标记。 
+
+>>** 行内式链接
++ 行内式的链接是用一个方括号紧跟着一个圆括号标识的：\[链接文字\]\(链接地址)
++ \[\]  是 &lt;a&gt;标签包含着的链接文字&lt;/a&gt;
++ \(\)  是 &lt;a&gt;标签 href 指向的链接地址
++ 链接后可跟 title 属性，title 不是必须属性，根据需来设置**
+
 ```
 This is [an example](http://example.com/ "Title") inline link.
 
-[This link](http://example.net/) has no title attribute.
 ```
-会产生：
+例如：
 ```
-<p>This is <a href="http://example.com/" title="Title">
-an example</a> inline link.</p>
-
-<p><a href="http://example.net/">This link</a> has no
-title attribute.</p>
+[Maekdown语法](https://github.com/WinSolstice/tools/blob/master/README.md title="WinSolstice的markdown语法总结")
++ 注释：[链接文字](链接地址 title)
 ```
+Markdown会自动转换为：
+```
+<p><a href="https://github.com/WinSolstice/tools/blob/master/README.md" title="WinSolstice的markdown语法总结">
+Maekdown语法</a></p>
+```
+HTML输出为：  
+<p><a href="https://github.com/WinSolstice/tools/blob/master/README.md" title="Title">
+Maekdown语法</a></p>  
 如果你是要链接到同样主机的资源，你可以使用相对路径：
+
+ ```
+See my [About](/about/) page for details
 ```
-See my [About](/about/) page for details.
-```
->> 参考式链接  
-+ 参考式的链接是在链接文字的括号后面再接上另一个方括号，而在第二个方括号里面要填入用以辨识链接的标记： 
+
+>> **参考式链接  
++ 参考式链接是用两个方括号标识的：\[链接文字\]\[用以辨识链接的id\]
++ 然后在文件的任意处，你可以把这个id对应的链接地址定义出来：
++ 链接后可跟 title 属性，title 不是必须属性，根据需来设置**
 ```
 This is [an example][id] reference-style link.
-```
-你也可以选择性地在两个方括号中间加上一个空格：
-```
-This is [an example] [id] reference-style link.
-```
-接着，在文件的任意处，你可以把这个标记的链接内容定义出来：
-```
 [id]: http://example.com/  "Optional Title Here"
 ```
-链接内容定义的形式为
+例如：
+```
+[Maekdown语法][WinSolstice title="WinSolstice的markdown语法总结"] 
++ [链接文字][用以辨识链接的id title]
+
+[WinSolstice]:https://github.com/WinSolstice/tools/blob/master/README.md
++ 定义 idid对应的链接地址 
+
+```
+Markdown会自动转换为：
+```
+<p><a href="https://github.com/WinSolstice/tools/blob/master/README.md" title="WinSolstice的markdown语法总结">
+Maekdown语法</a></p>
+```
++ 定义id对应的链接地址定义出来
+```
+[WinSolstice]:https://github.com/WinSolstice/tools/blob/master/README.md
+```
+HTML输出：  
+[Maekdown语法][WinSolstice] 
+[WinSolstice]:https://github.com/WinSolstice/tools/blob/master/README.md
+
+**链接内容定义的形式为**
 
 - 方括号（前面可以选择性地加上至多三个空格来缩进），里面输入链接文字，
 - 接着一个冒号，
 - 接着一个以上的空格或制表符，
 - 接着链接的网址，
-- 选择性地接着 title 内容，可以用单引号、双引号或是括弧包着  
+- 选择性地接着 title 内容，可以用单引号、双引号或是括弧包着,或者将title 属性放到下一行，也可以加一些缩进，若网址太长的话，这样会比较好看： 
++ 链接网址也可以用尖括号包起来：
++ 链接辨别标签可以有字母、数字、空白和标点符号，但是并不区分大小写，因此下面两个链接是一样的：  
 下面这三种链接的定义都是相同：
 ```
-[foo]: http://example.com/  Optional 'Title Here'
+[foo]: http://example.com/  Optional "Title Here"
 [foo]: http://example.com/  Optional 'Title Here'
 [foo]: http://example.com/  (Optional Title Here)
-```
-请注意：有一个已知的问题是 Markdown.pl 1.0.1 会忽略单引号包起来的链接 title。  
-
-链接网址也可以用尖括号包起来：
-```
 [id]: <http://example.com/>  "Optional Title Here"
 ```
-你也可以把 title 属性放到下一行，也可以加一些缩进，若网址太长的话，这样会比较好看：  
-```
-[id]: http://example.com/longish/path/to/resource/here
-    "Optional Title Here"
-```
-网址定义只有在产生链接的时候用到，并不会直接出现在文件之中。  
+*请注意：有一个已知的问题是 Markdown.pl 1.0.1 会忽略单引号包起来的链接 title。* 
 
-链接辨别标签可以有字母、数字、空白和标点符号，但是并不区分大小写，因此下面两个链接是一样的：  
-```
-[link text][a]
-[link text][A]
-```
-隐式链接标记功能让你可以省略指定链接标记，这种情形下，链接标记会视为等同于链接文字，要用隐式链接标记只要在链接文字后面加上一个空的方括号，如果你要让 "Google" 链接到 google.com，你可以简化成：
++ 隐式链接标记功能让你可以省略指定链接标记，这种情形下，链接标记会视为等同于链接文字，要用隐式链接标记只要在链接文字后面加上一个空的方括号，如果你要 让 "Google" 链接到 google.com，你可以简化成：
 ```
 [Google]: []
 ```
@@ -361,8 +374,8 @@ than from [Yahoo](http://search.yahoo.com/ "Yahoo Search") or
 
 
 #### 强调
-Markdown 使用星号(*)和底线(_)作为标记强调字词的符号，被<(*)或(_)包围的字词会被转成用&lt;em&gt;
-标签包围，用两个(**)或(__)包起来的话，则会被转成&lt;strong&gt;，例如：
+Markdown 使用星号 \* 和底线 \_ 作为标记强调字词的符号，被 \* 或 \_ 包围的字词会被转成用&lt;em&gt;
+标签包围，用两个 \** 或 \__ 包起来的话，则会被转成&lt;strong&gt;，例如：
 ```
 *single asterisks*
 
@@ -443,47 +456,47 @@ Please don't use any `<blink>` tags.
 <p><code>&amp;#8212;</code> is the decimal-encoded
 equivalent of <code>&amp;mdash;</code>.</p>
 ```
+
 #### 图片
 
 很明显地，要在纯文字应用中设计一个「自然」的语法来插入图片是有一定难度的。
 
 Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。
+>> + 行内式的图片语法看起来像是:
 
-+ 行内式的图片语法看起来像是：
++ 行内式的图片语法由：![图片的替代文字]（图片链接)组成
++ 链接后可跟 title 属性，title 不是必须属性，根据需来设置
 ```
 ![Alt text](/path/to/img.jpg)
 
 ![Alt text](/path/to/img.jpg "Optional title")
 ```
-详细叙述如下：
 
-* 一个惊叹号 !
-* 接着一个方括号，里面放上图片的替代文字
-* 接着一个普通括号，里面放上图片的网址，最后还可以用引号包住并加上 选择性的 'title' 文字。
 
-参考式的图片语法则长得像这样：
+>> + 参考式的图片语法则长得像这样：
 ```
 ![Alt text][id]
 ```
-+ id」是图片参考的名称，图片参考的定义方式则和连结参考一样：
++ [id」是图片参考的名称，图片参考的定义方式则和连结参考一样：
 ```
 [id]: url/to/image  "Optional title attribute"
 ```
 
-到目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <img> 标签。
-___________________________________________________________________________________________________________________________________________
+到目前为止， Markdown 还没有办法指定图片的宽高，如果你需要的话，你可以使用普通的 <&lt;img&gt;标签
 
+________________________________________________________________________________________________________________________________________
 ### 其它
 
 #### 自动链接
 
-Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用尖括号包起来， Markdown 就会自动把它转成链接。一般网址的链接文字就和链接地址一样，例如：
++ Markdown 支持以比较简短的自动链接形式来处理网址和电子邮件信箱，只要是用尖括号包起来， Markdown 就会自动把它转成链接。
+一般网址的链接文字就和链接地址一样，例如：
 ```
-<http://example.com/>
+<wawacai.xin.com>
 ```
 Markdown 会转为：
 ```
-<a href="http://example.com/">http://example.com/</a>
+<a href="http://wawacai.xin.com">http://wawacai.xin.com</a>
 ```
 邮址的自动链接也很类似，只是 Markdown 会先做一个编码转换的过程，把文字字符转成 16 进位码的 HTML 实体，这样的格式可以糊弄一些不好的邮址收集机器人，例如：
 ```
