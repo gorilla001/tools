@@ -227,6 +227,101 @@ end tell
 ```
 代码区块中，一般的 Markdown 语法不会被转换，像是星号便只是星号，这表示你可以很容易地以 Markdown 语法撰写 Markdown 语法相关的文件。
 
+#### 表格
+Markdown语法的表格同样简单，由英文输入状态下的 \| 、： 和 \- 组成
++ 两行及以上的  \|  构成一个边框完整的单元格
++ \|  \|  之间输入文本内容
++ <span>：-----</span> 放在第二排，可以定义表头，是制作表格的必须元素
++ ：的位置决定文本的对齐方式：
+  + 左对齐： ：------
+  + 右对齐： -------：
+  + 两端对齐：：------：
+```
+|   head    |   head    |   head    |
+| :-------- |  -------: |   :---:   |
+|   left    |   right   |   center  |
+|   left    |   right   |   center  |
+|   left    |   right   |   center  |
+```
+
+HTML输出    
+
+|   head    |   head    |   head    |
+| :-------- |  -------: |   :---:   |
+|   left    |   right   |   center  |
+|   left    |   right   |   center  |
+|   left    |   right   |   center  |
+
+
+#### 流程图
+Markdown语法的流程图构成：
++ 和所有语言代码块一样流程图要写在代码块中 由<span>```</span>开始、闭合，所有符号都是在英文输入状态下输入
++ flow紧随在<span>```</span>之后
++ 一般上面写结构，下面写流程  
++ -\> ->控制流程的操作符，就是指向下一步操作的
++ 每一条代码都是一个流程
+
++ st=>start: 开始 
+  + st 是变量名，变量名尽量语义化  
+  + start 操作模块名，如：开始，结束，判断。命名严格，区别大小写。  
+  + : 后面是要显示的文字 *注意：冒号后要加空格*  
+
++ st=>start: 开始   
+  + st 是变量名，变量名尽量语义化  
+  + start 操作模块名，如：开始，结束，判断。命名严格，区别大小写。  
+  + : 后面是要显示的文字 *注意：冒号后要加空格*  
++ 可用模块都是 **变量名 => 对应模块 ： 关键字**
+```
+  + 开始 stert
+            st=>start: 开始
+  + 结束 end
+            e=>end: 结束
+  + 普通操作块 opration
+            op1=>operation: 我的操作
+            op2=>operation: 我的操作
+  + 输入输出块 inputoutput
+            io1=>inputoutput: 输入输出块1
+            io2=>inputoutput: 输入输出块2
+  + 子任务块
+            sub1=>subroutine: 子任务1
+            sub2=>subroutine: 子任务2
+ 
+``` 
++ 判断位置和位置控制 
+```
+    + 判断流程控制
+            cond1(yes)->op1  #yes 的时候回到 op1
+            cond1(no)->e     #no 的时候 去结束
+    + 位置指定
+            cond1(no)->op2(right)->op1 #控制 op2 位置置于右边，再由op2 返回 op1 (好像不能向左)
+            #还可以这样 cond1(no,right) cond1(yes)->e  
+```
+如：
+```
+```flow
+st=>start: 开始
+e=>end: 结束
+op=>operation: 我的操作
+cond=>condition: 确认？
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
+HTML输出：
+```flow
+st=>start: 开始
+e=>end: 结束
+op=>operation: 我的操作
+cond=>condition: 确认？
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
+
 #### 分隔线
 你可以在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。你也可以在星号或是减号中间插入空格。下面每种写法都可以建立分隔线：  
 ```
